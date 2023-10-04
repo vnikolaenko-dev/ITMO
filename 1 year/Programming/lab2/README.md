@@ -4,6 +4,8 @@
 
 >Используйте * вместо X
 - javac
->javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/X.java src/pokemon/X/X.java src/Main.java
+```
+javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/X.java src/pokemon/X/X.java src/Main.java
+```
 - jar
 >jar -cfm app.jar MANIFEST.MF Pokemon.jar attacks/*.class pokemon/X/X.class Main.class
