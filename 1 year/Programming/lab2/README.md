@@ -4,6 +4,6 @@
 
 
 - javac
->javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/*.java src/pokemon/*/*.java src/Main.java
+>javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/*.java src/pokemon/ge1/*.java src/pokemon/ge2/*.java src/Main.java
 - jar
 >jar -cfm app.jar MANIFEST.MF Pokemon.jar attacks/*.class pokemon/*/*.class Main.class
