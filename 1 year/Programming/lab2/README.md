@@ -11,4 +11,4 @@ javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/*.java src/pokemon/*/*
 jar -cfm app.jar MANIFEST.MF Pokemon.jar attacks/*.class pokemon/X/X.class Main.class
 ```
 ##### Файловая структура
-![image](https://github.com/vnikolaenko-dev/ITMO/assets/64604542/db933e49-f521-4374-8ad5-18c0590c8164)
+![image](https://github.com/vnikolaenko-dev/ITMO/assets/64604542/f15247fe-32ef-4469-aa78-cccf79428e5d)
