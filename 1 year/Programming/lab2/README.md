@@ -4,6 +4,6 @@
 
 
 - JavaC
-javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/*java src/pokemon/*/*.java src/Main.java
+>javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/*java src/pokemon/*/*.java src/Main.java
 - Jar
-jar -cfm app.jar MANIFEST.MF Pokemon.jar attacks/class pokemon//*class Main.class
+>jar -cfm app.jar MANIFEST.MF Pokemon.jar attacks/class pokemon//*class Main.class
