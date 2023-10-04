@@ -4,7 +4,7 @@
 
 - javac
 ```
-javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/*.java src/pokemon/*/*.java src/Main.java
+javac -encoding utf8 -d bin -cp "Pokemon.jar" src/attacks/*.java src/pokemons/*/*.java src/Main.java
 ```
 - jar
 ```
