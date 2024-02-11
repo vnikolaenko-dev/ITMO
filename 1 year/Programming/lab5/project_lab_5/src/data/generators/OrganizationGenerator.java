@@ -6,6 +6,7 @@ import data.Coordinates;
 import data.Organization;
 import data.OrganizationType;
 import exceptions.BuildObjectException;
+import exceptions.ReplayIdException;
 import exceptions.WrongArgumentException;
 import managers.InputValidator;
 import system.TextColor;

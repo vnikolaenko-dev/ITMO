@@ -1,7 +1,9 @@
 package exceptions;
 
+import system.TextColor;
+
 public class WrongArgumentException extends Exception{
     public WrongArgumentException(String argument){
-        super("Something wrong with input argument: " + argument + "\nRepeat input with correct data");
+        super(TextColor.ANSI_RED + "Something wrong with input argument: " + argument + TextColor.ANSI_RESET);
     }
 }

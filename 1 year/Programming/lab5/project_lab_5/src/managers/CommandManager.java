@@ -17,9 +17,12 @@ public class CommandManager {
         commandList.put("update", new UpdateCommand());
         commandList.put("remove_key", new RemoveCommand());
         commandList.put("clear", new ClearCommand());
+        commandList.put("read", new ReadXMLCommand());
+        commandList.put("save", new SaveXMLCommand());
+        commandList.put("exit", new ExitCommand());
     }
 
-    public void startExecuting(String line) throws UnknownCommandException {
+    public void startExecuting(String line) throws Exception {
         String commandName = line.split(" ")[0];
         if (!commandList.containsKey(commandName)) {
             throw new UnknownCommandException(commandName);

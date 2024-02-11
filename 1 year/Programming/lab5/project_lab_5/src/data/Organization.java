@@ -2,7 +2,9 @@ package data;
 
 import data.generators.IdGenerator;
 
+import javax.xml.validation.Validator;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Organization {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -37,6 +39,18 @@ public class Organization {
         this.employeesCount = null;
         this.type = null;
         this.postalAddress = null;
+    }
+
+    public Organization(ArrayList<String> data) {
+        this.id = Long.parseLong(data.get(1));
+        this.name = data.get(2);
+        this.coordinates = new Coordinates(Integer.parseInt(data.get(3)), Integer.parseInt(data.get(4)));
+        this.creationDate = LocalDate.parse(data.get(5));
+        this.annualTurnover = Double.parseDouble(data.get(6));
+        this.fullName = data.get(7);
+        this.employeesCount = Integer.parseInt(data.get(8));
+        this.type = OrganizationType.valueOf(data.get(9));
+        this.postalAddress = new Address(data.get(10), data.get(11));
     }
 
     @Override

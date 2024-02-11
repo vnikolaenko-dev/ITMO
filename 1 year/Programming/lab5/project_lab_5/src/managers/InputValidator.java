@@ -1,14 +1,23 @@
 package managers;
 
-import data.Organization;
 import data.OrganizationType;
-import exceptions.UnknownCommandException;
+import data.generators.IdGenerator;
+import exceptions.ReplayIdException;
 import exceptions.WrongArgumentException;
 
-import java.util.SplittableRandom;
-
 public class InputValidator {
+    public static void idIsOk(String arg) throws WrongArgumentException, ReplayIdException {
+        long id;
+        try {
+            id = Long.parseLong(arg);
+        } catch (Exception e) {
+            throw new WrongArgumentException("ID");
+        }
 
+        if (!IdGenerator.idIsUnic(id)){
+            throw new ReplayIdException(id);
+        }
+    }
     public static void inputIsNotEmpty(String arg, String data) throws WrongArgumentException {
         if (arg.isEmpty()) {
             throw new WrongArgumentException(data);

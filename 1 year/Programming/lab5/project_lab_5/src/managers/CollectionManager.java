@@ -1,18 +1,20 @@
 package managers;
 
 import data.Organization;
+import data.generators.IdGenerator;
 import exceptions.NoElementException;
 
 import java.time.LocalDate;
 import java.util.Hashtable;
 
 public class CollectionManager {
-    private static Hashtable<String, Organization> table;
+    private static Hashtable<String, Organization> table = new Hashtable<>();
     private static LocalDate date;
 
     public CollectionManager() {
-        date = LocalDate.now();
         table = new Hashtable<>();
+        date = LocalDate.now();
+        new IdGenerator();
     }
 
     public static LocalDate getInitDate() {
@@ -20,7 +22,11 @@ public class CollectionManager {
     }
 
     public static void add(String key, Organization organization) {
+        if (table == null) {
+            table = new Hashtable<>();
+        }
         table.put(key, organization);
+        // IdGenerator.add(Long.parseLong(key));
     }
 
     public static void remove(String key) throws NoElementException {

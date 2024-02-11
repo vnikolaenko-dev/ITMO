@@ -2,6 +2,7 @@ package managers.commands;
 
 import data.Organization;
 import exceptions.BuildObjectException;
+import exceptions.ReplayIdException;
 import exceptions.WrongArgumentException;
 import managers.CollectionManager;
 import data.generators.OrganizationGenerator;
@@ -16,9 +17,9 @@ public class InsertCommand implements BaseCommand {
             CollectionManager.add(args[1], (Organization) organization);
             System.out.println(TextColor.ANSI_BLUE + "Element was added" + TextColor.ANSI_RESET);
         } catch (WrongArgumentException e) {
-            System.out.println(TextColor.ANSI_RED + e.getMessage() + TextColor.ANSI_RESET);
+            System.out.println(e.getMessage());
         } catch (BuildObjectException e) {
-            System.out.println(TextColor.ANSI_RED + e.getMessage() + TextColor.ANSI_RESET);
+            System.out.println(e.getMessage());
             System.out.println("Program was returned to safe state");
         }
     }

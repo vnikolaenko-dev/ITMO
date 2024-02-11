@@ -3,6 +3,7 @@ package managers.commands;
 import data.Organization;
 import exceptions.BuildObjectException;
 import exceptions.NoElementException;
+import exceptions.ReplayIdException;
 import exceptions.WrongArgumentException;
 import managers.CollectionManager;
 import data.generators.OrganizationGenerator;
@@ -31,7 +32,7 @@ public class UpdateCommand implements BaseCommand {
                 throw new NoElementException(id);
             }
         } catch (WrongArgumentException | BuildObjectException | NoElementException e) {
-            System.out.println(TextColor.ANSI_RED + e.getMessage() + TextColor.ANSI_RESET);
+            System.out.println(e.getMessage());
             System.out.println("Program was returned to safe state");
         }
     }
