@@ -53,6 +53,32 @@ public class Organization {
         this.postalAddress = new Address(data.get(10), data.get(11));
     }
 
+    public Organization(String[] data) {
+        this.id = Long.parseLong(data[1]);
+        this.name = data[2];
+        this.coordinates = new Coordinates(Integer.parseInt(data[3]), Integer.parseInt(data[4]));
+        this.creationDate = LocalDate.parse(data[5]);
+        this.annualTurnover = Double.parseDouble(data[6]);
+        this.fullName = data[7];
+        this.employeesCount = Integer.parseInt(data[8]);
+        this.type = OrganizationType.valueOf(data[9]);
+        this.postalAddress = new Address(data[10], data[11]);
+    }
+
+    public String toXML(){
+        return "id=\"" + id + "\"" +
+                " name=\"" + name + "\"" +
+                " x=\"" + coordinates.getX() + "\"" +
+                " y=\"" + coordinates.getY() + "\"" +
+                " creationDate=\"" + creationDate + "\"" +
+                " annualTurnover=\"" + annualTurnover + "\"" +
+                " fullName=\"" + fullName +"\"" +
+                " employeesCount=\"" + employeesCount + "\"" +
+                " type=\"" + type + "\"" +
+                " street=\"" + postalAddress.getStreet() + "\"" +
+                " zipCode=\"" + postalAddress.getZipCode() + "\"";
+    }
+
     @Override
     public String toString() {
         return "Organization{" +
