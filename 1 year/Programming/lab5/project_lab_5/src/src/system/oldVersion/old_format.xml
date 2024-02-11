@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<collection>
+    <organisation>
+        <key>ITMO</key>
+        <id>98989898</id>
+        <name>ITMO</name>
+        <coordinates>
+            <x>5</x>
+            <y>6</y>
+        </coordinates>
+        <creationDate>2024-02-11</creationDate>
+        <annualTurnover>4.5</annualTurnover>
+        <fullName>ITMO CORP</fullName>
+        <employeesCount>40000</employeesCount>
+        <type>PUBLIC</type>
+        <postalAddress>
+            <street>Kronversky</street>
+            <zipCode>49</zipCode>
+        </postalAddress>
+    </organisation>
+    <organisation>
+        <key>NEW ITMO</key>
+        <id>98989890</id>
+        <name>ITMO</name>
+        <coordinates>
+            <x>5</x>
+            <y>6</y>
+        </coordinates>
+        <creationDate>2024-02-11</creationDate>
+        <annualTurnover>4.5</annualTurnover>
+        <fullName>ITMO CORP</fullName>
+        <employeesCount>40000</employeesCount>
+        <type>PUBLIC</type>
+        <postalAddress>
+            <street>Kronversky</street>
+            <zipCode>49</zipCode>
+        </postalAddress>
+    </organisation>
+</collection>
