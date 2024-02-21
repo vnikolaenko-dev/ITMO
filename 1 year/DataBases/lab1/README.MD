@@ -3,4 +3,4 @@
 
 ## Инфологическая модель
 
-![Alt text](https://github.com/vnikolaenko-dev/ITMO/blob/main/1%20year/DataBases/lab1/pictures/info.png =250×250)
+![Alt text](https://github.com/vnikolaenko-dev/ITMO/blob/main/1%20year/DataBases/lab1/pictures/info.png {width=200px height=200px})
