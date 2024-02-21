@@ -8,4 +8,4 @@
 
 ## Даталогическая модель
 
-<img src="https://github.com/vnikolaenko-dev/ITMO/blob/main/1%20year/DataBases/lab1/pictures/data.png" width="650">
+<img src="https://github.com/vnikolaenko-dev/ITMO/blob/main/1%20year/DataBases/lab1/pictures/data.png" width="900">
