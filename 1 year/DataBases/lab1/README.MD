@@ -4,3 +4,8 @@
 ## Инфологическая модель
 
 <img src="https://github.com/vnikolaenko-dev/ITMO/blob/main/1%20year/DataBases/lab1/pictures/info.png" width="500">
+
+
+## Даталогическая модель
+
+<img src="https://github.com/vnikolaenko-dev/ITMO/blob/main/1%20year/DataBases/lab1/pictures/data.png" width="650">
