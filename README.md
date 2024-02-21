@@ -1,3 +1,6 @@
 # ITMO
 Лабораторные, конспекты и другое
-![hacker-pepe](https://github.com/vnikolaenko-dev/ITMO/assets/64604542/77fe6bb5-5a6a-4d15-afde-49ecce3e5ae1)
+
+
+![pepefrg-4](https://github.com/vnikolaenko-dev/ITMO/assets/64604542/b79b5812-144b-4228-9674-ee8fc361344c)
+
