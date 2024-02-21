@@ -1,0 +1,5 @@
+execute_script C:\Users\VikTester\Desktop\ED\Programming\2_sem\labs\lab5\project_lab_5\src\system\test1.txt
+execute_script C:\Users\VikTester\Desktop\ED\Programming\2_sem\labs\lab5\project_lab_5\src\system\test1.txt
+execute_script C:\Users\VikTester\Desktop\ED\Programming\2_sem\labs\lab5\project_lab_5\src\system\test1.txt
+execute_script C:\Users\VikTester\Desktop\ED\Programming\2_sem\labs\lab5\project_lab_5\src\system\test1.txt
+execute_script C:\Users\VikTester\Desktop\ED\Programming\2_sem\labs\lab5\project_lab_5\src\system\test1.txt

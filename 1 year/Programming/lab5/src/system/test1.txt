@@ -1,0 +1,14 @@
+info
+show
+min_by_id
+insert 321123
+1
+1
+1
+1
+1
+1
+PUBLIC
+1
+1
+info
