@@ -1,6 +1,8 @@
 ### Мануал к 5 лабораторной работе
 
 Полезные ссылки:
+
+
 https://javarush.com/groups/posts/4133-kofe-breyk-233-shablon-proektirovanija-command-komanda-8-samihkh-kaverznihkh-voprosov-po-java-d
 
 ИЗ САТЬИ:
