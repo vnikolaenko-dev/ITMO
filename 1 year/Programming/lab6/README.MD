@@ -46,7 +46,7 @@
 Чтобы адекватно отвечать на запросы пользователей, создадим HashMap<SelectionKey, Request> cookies
 ### когда читаем
 кладем ключ и сформированные ответ на запрос
-   -cookies.put(key, request);
+   - cookies.put(key, request);
 ### когда пишем
 отправляем заранее сформированные ответ по ключу
-   -objectOutputStream.writeObject(cookies.get(key));
+   - objectOutputStream.writeObject(cookies.get(key));
