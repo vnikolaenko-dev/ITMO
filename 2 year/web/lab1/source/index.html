@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лаба №1</title>
+    <style>
+        body {
+            background-color: #2C2F33; /* Темный фон */
+            color: #FFFFFF; /* Белый текст */
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        header {
+            padding: 10px;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        h1 {
+            color: #7289DA; /* Цвет заголовка */
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+            background-color: #23272A; /* Темный фон для ввода */
+            color: #FFFFFF; /* Белый текст */
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #7289DA; /* Цвет кнопки */
+            color: #FFFFFF; /* Белый текст на кнопке */
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5B6EAE; /* Цвет кнопки при наведении */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            /* border: 1px solid black; */
+            padding: 8px;
+            text-align: left;
+            width: 10%;
+            height: 10%;
+        }
+
+        th {
+            background-color: #23272A; /* Темный фон для ввода */
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Николаенко Виктор Олегович, Группа , ИСУ 409244, Вариант 115110</h1>
+</header>
+
+<table>
+    <tr>
+        <td>
+            <section class="block plot-section">
+                <div class="graph">
+                    <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg">
+
+                        <!-- Оси со стрелками -->
+                        <line stroke="gray" x1="0" x2="300" y1="150" y2="150"></line>
+                        <line stroke="gray" x1="150" x2="150" y1="0" y2="300"></line>
+                        <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
+                        <polygon fill="white" points="300,150 285,156 285,144" stroke="white"></polygon>
+
+                        <!-- Засечки -->
+                        <line stroke="gray" x1="200" x2="200" y1="155" y2="145"></line>
+                        <line stroke="gray" x1="250" x2="250" y1="155" y2="145"></line>
+
+                        <line stroke="gray" x1="50" x2="50" y1="155" y2="145"></line>
+                        <line stroke="gray" x1="100" x2="100" y1="155" y2="145"></line>
+
+                        <line stroke="gray" x1="145" x2="155" y1="100" y2="100"></line>
+                        <line stroke="gray" x1="145" x2="155" y1="50" y2="50"></line>
+
+                        <line stroke="gray" x1="145" x2="155" y1="200" y2="200"></line>
+                        <line stroke="gray" x1="145" x2="155" y1="250" y2="250"></line>
+
+                        <!-- Подписи к засечкам    -->
+                        <text fill="white" x="195" y="140">R/2</text>
+                        <text fill="white" x="248" y="140">R</text>
+
+                        <text fill="white" x="40" y="140">-R</text>
+                        <text fill="white" x="90" y="140">-R/2</text>
+
+                        <text fill="white" x="160" y="105">R/2</text>
+                        <text fill="white" x="160" y="55">R</text>
+
+                        <text fill="white" x="160" y="205">-R/2</text>
+                        <text fill="white" x="160" y="255">-R</text>
+
+                        <text fill="white" x="160" y="10">Y</text>
+                        <text fill="white" x="290" y="140">X</text>
+
+                        <!-- Прямоугольник (слева внизу) -->
+                        <rect x="150" y="50" width="100" height="100" fill="#0000FF" fill-opacity="0.2" stroke="#0000FF"></rect>
+
+                        <!-- Треугольник (справа снизу) -->
+                        <polygon fill="#0000FF" fill-opacity="0.2" points="50,150 150,150 150,250" stroke="#0000FF"></polygon>
+
+                        <path d="M 50 150 A 100, 100, 0, 0, 1, 150 50 L 150 150 Z" fill-opacity="0.2" fill="#0000FF" stroke="#0000FF"></path>
+                        <!-- Центр оси координат -->
+                        <circle cx="150" cy="150" id="target-dot" r="0" stroke="white" fill="white"></circle>
+                    </svg>
+                </div>
+            </section>
+        </td>
+        <td>
+            <input type="number" id="xInput" min="-5" max="5" placeholder="Введите x"/>
+        </td>
+        <td>
+            <input type="number" id="yInput" min="-5" max="5" placeholder="Введите y"/>
+        </td>
+        <td>
+            <button id="getButton">Проверить</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1>Результаты</h1>
+        </td>
+    </tr>
+</table>
+<table id="resultsTable" border="1">
+    <tr>
+        <th><h2>X</h2></th>
+        <th><h2>Y</h2></th>
+        <th><h2>Ответ</h2></th>
+        <th><h2>Время выполнения (наносекунды)</h2></th>
+        <th><h2>Время на сервере</h2></th>
+    </tr>
+</table>
+<script charset="utf-8" type="text/javascript">
+    document.getElementById("getButton").onclick = async function () {
+        let x = document.getElementById("xInput").value;
+        let y = document.getElementById("yInput").value;
+        const url = new URL('./fcgi-bin/my_app.jar', window.location.href);
+        url.searchParams.set('x', x);
+        url.searchParams.set('y', y);
+
+        fetch(url.href, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка сети или сервера');
+                }
+                return response.text(); // Возвращаем текст ответа
+            })
+            .then(result => {
+                const table = document.getElementById("resultsTable");
+                const newRow = table.insertRow(); // Добавляем новую строку
+
+                // Заполняем ячейки новой строки
+                const xCell = newRow.insertCell(0);
+                const yCell = newRow.insertCell(1);
+                const answerCell = newRow.insertCell(2);
+                const executionTimeCell = newRow.insertCell(3);
+                const serverTimeCell = newRow.insertCell(4);
+
+                xCell.innerText = x; // Пример: берем x из результата
+                yCell.innerText = y; // Пример: берем y из результата
+
+                const jsonResult = JSON.parse(result);
+                serverTimeCell.innerText = jsonResult.serverTime; // Пример: берем x из результата
+                executionTimeCell.innerText = jsonResult.executionTime; // Пример: берем y из результата
+                answerCell.innerText = jsonResult.answer ? "Входит" : "Не входит"; // Устанавливаем ответ
+                // createNotification("Ответ сервера: " + result); // Вызываем уведомление
+            })
+            .catch(error => {
+                // createNotification("Ошибка: " + error.message);
+            });
+    }
+</script>
+</body>
+</html>
