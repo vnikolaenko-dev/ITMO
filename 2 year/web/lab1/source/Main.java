@@ -14,6 +14,7 @@ import java.util.Map;
 
 class Main {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    static int r;
     private static final String RESULT_JSON = """
             {
                 "answer": %b,
@@ -62,8 +63,9 @@ class Main {
 
                 int x = Integer.parseInt(params.getOrDefault("x", "Неизвестный"));
                 int y = Integer.parseInt(params.getOrDefault("y", "Неизвестный"));
+                r = Integer.parseInt(params.getOrDefault("r", "Неизвестный"));
 
-                boolean insideRectangle = isInsideRectangle(x, y, 0, 0, 5, 5);
+                boolean insideRectangle = isInsideRectangle(x, y, -(r / 2), -r, r / 2, r);
                 boolean insidePolygon = isInsidePolygon(x, y);
                 boolean insidePath = isInsidePath(x, y);
 
@@ -94,9 +96,9 @@ class Main {
     private static boolean isInsidePolygon(double px, double py) {
         // Определим вершины многоугольника
         double[][] polygon = {
-                {-5, 0},
+                {-r, 0},
                 {0, 0},
-                {0, -5}
+                {0, r}
         };
 
         int n = polygon.length;
@@ -118,7 +120,7 @@ class Main {
     private static boolean isInsidePath(double x, double y) {
         double centerX = 0;
         double centerY = 0;
-        double radius = 5;
+        double radius = r / 2;
         if (x >= centerX && y <= centerY && x <= (centerX + radius) && y >= (centerY - radius)) {
             double distanceSquared = Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2);
             if (distanceSquared <= Math.pow(radius, 2)) {
