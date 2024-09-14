@@ -55,7 +55,7 @@
         th, td {
             /* border: 1px solid black; */
             padding: 8px;
-            text-align: left;
+            text-align: center;
             width: 10%;
             height: 10%;
         }
@@ -68,7 +68,8 @@
 </head>
 <body>
 <header>
-    <h1>Николаенко Виктор Олегович, Группа , ИСУ 409244, Вариант 115110</h1>
+    <h1>Николаенко Виктор Олегович</h1>
+    <h3>Группа Веб- прогр 1.1 (Р3206), Вариант 115210</h3>
 </header>
 
 <table>
@@ -114,12 +115,15 @@
                         <text fill="white" x="290" y="140">X</text>
 
                         <!-- Прямоугольник (слева внизу) -->
-                        <rect x="150" y="50" width="100" height="100" fill="#0000FF" fill-opacity="0.2" stroke="#0000FF"></rect>
+                        <rect x="100" y="150" width="50" height="100" fill="#0000FF" fill-opacity="0.2"
+                              stroke="#0000FF"></rect>
 
                         <!-- Треугольник (справа снизу) -->
-                        <polygon fill="#0000FF" fill-opacity="0.2" points="50,150 150,150 150,250" stroke="#0000FF"></polygon>
+                        <polygon fill="#0000FF" fill-opacity="0.2" points="50,150 150,150 150,50"
+                                 stroke="#0000FF"></polygon>
 
-                        <path d="M 50 150 A 100, 100, 0, 0, 1, 150 50 L 150 150 Z" fill-opacity="0.2" fill="#0000FF" stroke="#0000FF"></path>
+                        <path d="M 200 150 A 100, 100, 0, 0, 1, 150 200 L 150 150 Z" fill-opacity="0.2" fill="#0000FF"
+                              stroke="#0000FF"></path>
                         <!-- Центр оси координат -->
                         <circle cx="150" cy="150" id="target-dot" r="0" stroke="white" fill="white"></circle>
                     </svg>
@@ -127,10 +131,32 @@
             </section>
         </td>
         <td>
-            <input type="number" id="xInput" min="-5" max="5" placeholder="Введите x"/>
+
+
+        <h4>Введите X</h4>
+        <input type="number" id="xInput" min="-5" max="5" placeholder="Введите x"/>
         </td>
         <td>
-            <input type="number" id="yInput" min="-5" max="5" placeholder="Введите y"/>
+            <h4>Введите Y</h4>
+            <div id="buttons"></div>
+        </td>
+        <td>
+            <h4>Введите R</h4>
+            <label>
+                <input type="radio" name="number" value="1"> 1
+            </label><br>
+            <label>
+                <input type="radio" name="number" value="2"> 2
+            </label><br>
+            <label>
+                <input type="radio" name="number" value="3"> 3
+            </label><br>
+            <label>
+                <input type="radio" name="number" value="4"> 4
+            </label><br>
+            <label>
+                <input type="radio" name="number" value="5"> 5
+            </label><br>
         </td>
         <td>
             <button id="getButton">Проверить</button>
@@ -146,18 +172,41 @@
     <tr>
         <th><h2>X</h2></th>
         <th><h2>Y</h2></th>
+        <th><h2>R</h2></th>
         <th><h2>Ответ</h2></th>
         <th><h2>Время выполнения (наносекунды)</h2></th>
         <th><h2>Время на сервере</h2></th>
     </tr>
 </table>
 <script charset="utf-8" type="text/javascript">
-    document.getElementById("getButton").onclick = async function () {
-        let x = document.getElementById("xInput").value;
-        let y = document.getElementById("yInput").value;
+    // Создаем список чисел от -4 до 5
+    const numbers = [-3, -2, -1, 0, 1, 2, 3, 4, 5];
+    let x = -10;
+    let y = 10;
+    let r = 0;
+
+    // Функция для создания и добавления кнопок
+    function createButtons() {
+        const buttonContainer = document.getElementById('buttons');
+        numbers.forEach(number => {
+            const button = document.createElement('button');
+            button.textContent = number; // Устанавливаем текст кнопки
+            button.onclick = function () {
+                y = number; // Записываем значение в y
+                console.log("Значение y:", y); // Выводим значение в консоль (можно убрать)
+            };
+            buttonContainer.appendChild(button); // Добавляем кнопку в контейнер
+        });
+    }
+
+    // Создаем кнопки при загрузке страницы
+    createButtons();
+
+    function sendRequest() {
         const url = new URL('./fcgi-bin/my_app.jar', window.location.href);
         url.searchParams.set('x', x);
         url.searchParams.set('y', y);
+        url.searchParams.set('r', r);
 
         fetch(url.href, {
             method: 'GET',
@@ -178,12 +227,14 @@
                 // Заполняем ячейки новой строки
                 const xCell = newRow.insertCell(0);
                 const yCell = newRow.insertCell(1);
-                const answerCell = newRow.insertCell(2);
-                const executionTimeCell = newRow.insertCell(3);
-                const serverTimeCell = newRow.insertCell(4);
+                const rCell = newRow.insertCell(2);
+                const answerCell = newRow.insertCell(3);
+                const executionTimeCell = newRow.insertCell(4);
+                const serverTimeCell = newRow.insertCell(5);
 
                 xCell.innerText = x; // Пример: берем x из результата
                 yCell.innerText = y; // Пример: берем y из результата
+                rCell.innerText = r; // Пример: берем y из результата
 
                 const jsonResult = JSON.parse(result);
                 serverTimeCell.innerText = jsonResult.serverTime; // Пример: берем x из результата
@@ -194,6 +245,68 @@
             .catch(error => {
                 // createNotification("Ошибка: " + error.message);
             });
+    }
+
+    function isEmptyString(str) {
+        return !str || !str.trim();
+    }
+
+    document.getElementById("getButton").onclick = async function () {
+        x = document.getElementById("xInput").value;
+        // let y = document.getElementById("yInput").value;
+        const radios = document.getElementsByName('number');
+        // Ищем выбранное значение
+        for (const radio of radios) {
+            if (radio.checked) {
+                r = radio.value;
+                break;
+            }
+        }
+
+        if ("Notification" in window) {
+            // Запрашиваем у пользователя разрешение на отображение уведомлений
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    if (isEmptyString(x) || x < -5 || x > 5) {
+                        // Создаем уведомление
+                        const notification = new Notification("Некорректное значение для x", {
+                            body: "X должен быть целым числом от -5 до 5",
+                            icon: "URL_вашего_значка" // Укажите URL значка (опционально)
+                        });
+                        notification.onclick = () => {
+                            window.open("http://ваш_сайт.com"); // Открывает сайт при клике
+                        };
+                        return;
+                    } else if (y === 10) {
+                        // Создаем уведомление
+                        const notification = new Notification("Некорректное значение для y", {
+                            body: "Выберите одно из предложенных значений для Y",
+                            icon: "URL_вашего_значка" // Укажите URL значка (опционально)
+                        });
+                        notification.onclick = () => {
+                            window.open("http://ваш_сайт.com"); // Открывает сайт при клике
+                        };
+                        return;
+                    } else if (r === 0) {
+                        // Создаем уведомление
+                        const notification = new Notification("Некорректное значение для R", {
+                            body: "Выберите одно из предложенных значений для R",
+                            icon: "URL_вашего_значка" // Укажите URL значка (опционально)
+                        });
+                        notification.onclick = () => {
+                            window.open("http://ваш_сайт.com"); // Открывает сайт при клике
+                        };
+                        return;
+                    } else {
+                        sendRequest()
+                    }
+                } else {
+                    console.log("Разрешение на уведомления не получено.");
+                }
+            });
+        } else {
+            console.log("Ваш браузер не поддерживает уведомления.");
+        }
     }
 </script>
 </body>
