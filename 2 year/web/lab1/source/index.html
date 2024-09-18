@@ -4,144 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лаба №1</title>
-    <style>
-        body {
-            background-color: #2C2F33; /* Темный фон */
-            color: #FFFFFF; /* Белый текст */
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        header {
-            padding: 10px;
-            margin: 10px 0;
-            text-align: left;
-        }
-
-        h1 {
-            color: #7289DA; /* Цвет заголовка */
-        }
-
-        input[type="number"] {
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 300px;
-            background-color: #23272A; /* Темный фон для ввода */
-            color: #FFFFFF; /* Белый текст */
-        }
-
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #7289DA; /* Цвет кнопки */
-            color: #FFFFFF; /* Белый текст на кнопке */
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #5B6EAE; /* Цвет кнопки при наведении */
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            /* border: 1px solid black; */
-            padding: 8px;
-            text-align: center;
-            width: 10%;
-            height: 10%;
-        }
-
-        th {
-            background-color: #23272A; /* Темный фон для ввода */
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
+<div class="header">
     <h1>Николаенко Виктор Олегович</h1>
-    <h3>Группа Веб- прогр 1.1 (Р3206), Вариант 115210</h3>
-</header>
+    <h3>Группа Веб - прогр 1.1 (Р3206), Вариант 115210</h3>
+</div>
 
-<table>
-    <tr>
-        <td>
-            <section class="block plot-section">
-                <div class="graph">
-                    <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg">
+<div class="container">
+    <div class="left-block" id="graph">
+        <section class="block plot-section">
+            <div class="graph">
+                <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg">
 
-                        <!-- Оси со стрелками -->
-                        <line stroke="gray" x1="0" x2="300" y1="150" y2="150"></line>
-                        <line stroke="gray" x1="150" x2="150" y1="0" y2="300"></line>
-                        <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
-                        <polygon fill="white" points="300,150 285,156 285,144" stroke="white"></polygon>
+                    <!-- Оси со стрелками -->
+                    <line stroke="gray" x1="0" x2="300" y1="150" y2="150"></line>
+                    <line stroke="gray" x1="150" x2="150" y1="0" y2="300"></line>
+                    <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
+                    <polygon fill="white" points="300,150 285,156 285,144" stroke="white"></polygon>
 
-                        <!-- Засечки -->
-                        <line stroke="gray" x1="200" x2="200" y1="155" y2="145"></line>
-                        <line stroke="gray" x1="250" x2="250" y1="155" y2="145"></line>
+                    <!-- Засечки -->
+                    <line stroke="gray" x1="200" x2="200" y1="155" y2="145"></line>
+                    <line stroke="gray" x1="250" x2="250" y1="155" y2="145"></line>
 
-                        <line stroke="gray" x1="50" x2="50" y1="155" y2="145"></line>
-                        <line stroke="gray" x1="100" x2="100" y1="155" y2="145"></line>
+                    <line stroke="gray" x1="50" x2="50" y1="155" y2="145"></line>
+                    <line stroke="gray" x1="100" x2="100" y1="155" y2="145"></line>
 
-                        <line stroke="gray" x1="145" x2="155" y1="100" y2="100"></line>
-                        <line stroke="gray" x1="145" x2="155" y1="50" y2="50"></line>
+                    <line stroke="gray" x1="145" x2="155" y1="100" y2="100"></line>
+                    <line stroke="gray" x1="145" x2="155" y1="50" y2="50"></line>
 
-                        <line stroke="gray" x1="145" x2="155" y1="200" y2="200"></line>
-                        <line stroke="gray" x1="145" x2="155" y1="250" y2="250"></line>
+                    <line stroke="gray" x1="145" x2="155" y1="200" y2="200"></line>
+                    <line stroke="gray" x1="145" x2="155" y1="250" y2="250"></line>
 
-                        <!-- Подписи к засечкам    -->
-                        <text fill="white" x="195" y="140">R/2</text>
-                        <text fill="white" x="248" y="140">R</text>
+                    <!-- Подписи к засечкам    -->
+                    <text fill="white" x="195" y="140">R/2</text>
+                    <text fill="white" x="248" y="140">R</text>
 
-                        <text fill="white" x="40" y="140">-R</text>
-                        <text fill="white" x="90" y="140">-R/2</text>
+                    <text fill="white" x="40" y="140">-R</text>
+                    <text fill="white" x="90" y="140">-R/2</text>
 
-                        <text fill="white" x="160" y="105">R/2</text>
-                        <text fill="white" x="160" y="55">R</text>
+                    <text fill="white" x="160" y="105">R/2</text>
+                    <text fill="white" x="160" y="55">R</text>
 
-                        <text fill="white" x="160" y="205">-R/2</text>
-                        <text fill="white" x="160" y="255">-R</text>
+                    <text fill="white" x="160" y="205">-R/2</text>
+                    <text fill="white" x="160" y="255">-R</text>
 
-                        <text fill="white" x="160" y="10">Y</text>
-                        <text fill="white" x="290" y="140">X</text>
+                    <text fill="white" x="160" y="10">Y</text>
+                    <text fill="white" x="290" y="140">X</text>
 
-                        <!-- Прямоугольник (слева внизу) -->
-                        <rect x="100" y="150" width="50" height="100" fill="#0000FF" fill-opacity="0.2"
-                              stroke="#0000FF"></rect>
+                    <!-- Прямоугольник (слева внизу) -->
+                    <rect x="100" y="150" width="50" height="100" fill="#0000FF" fill-opacity="0.2"
+                          stroke="#0000FF"></rect>
 
-                        <!-- Треугольник (справа снизу) -->
-                        <polygon fill="#0000FF" fill-opacity="0.2" points="50,150 150,150 150,50"
-                                 stroke="#0000FF"></polygon>
+                    <!-- Треугольник (справа снизу) -->
+                    <polygon fill="#0000FF" fill-opacity="0.2" points="50,150 150,150 150,50"
+                             stroke="#0000FF"></polygon>
 
-                        <path d="M 200 150 A 100, 100, 0, 0, 1, 150 200 L 150 150 Z" fill-opacity="0.2" fill="#0000FF"
-                              stroke="#0000FF"></path>
-                        <!-- Центр оси координат -->
-                        <circle cx="150" cy="150" id="target-dot" r="0" stroke="white" fill="white"></circle>
-                    </svg>
-                </div>
-            </section>
-        </td>
-        <td>
+                    <path d="M 200 150 A 100, 100, 0, 0, 1, 150 200 L 150 150 Z" fill-opacity="0.2" fill="#0000FF"
+                          stroke="#0000FF"></path>
+                    <!-- Центр оси координат -->
+                    <circle cx="150" cy="150" id="target-dot" r="0" stroke="white" fill="white"></circle>
+                </svg>
+            </div>
+        </section>
+    </div>
 
-
-        <h4>Введите X</h4>
-        <input type="number" id="xInput" min="-5" max="5" placeholder="Введите x"/>
-        </td>
-        <td>
-            <h4>Введите Y</h4>
-            <div id="buttons"></div>
-        </td>
-        <td>
-            <h4>Введите R</h4>
+    <div class="right-block">
+        <h4  class="input">Введите X</h4>
+        <input type="number" id="xInput" step="any" min="-5" max="5" placeholder="Введите x"/>
+        <h4 class="input">Выберете Y</h4>
+        <div id="buttons"></div>
+        <h4  class="input">Введите R</h4>
+        <div id="radios">
             <label>
                 <input type="radio" name="number" value="1"> 1
             </label><br>
@@ -157,27 +92,26 @@
             <label>
                 <input type="radio" name="number" value="5"> 5
             </label><br>
-        </td>
-        <td>
-            <button id="getButton">Проверить</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <h1>Результаты</h1>
-        </td>
-    </tr>
-</table>
-<table id="resultsTable" border="1">
-    <tr>
-        <th><h2>X</h2></th>
-        <th><h2>Y</h2></th>
-        <th><h2>R</h2></th>
-        <th><h2>Ответ</h2></th>
-        <th><h2>Время выполнения (наносекунды)</h2></th>
-        <th><h2>Время на сервере</h2></th>
-    </tr>
-</table>
+        </div>
+
+        <button id="getButton" value="1">Проверить</button>
+    </div>
+</div>
+
+<h1 class="results">Результаты</h1>
+
+<div id="table">
+    <table id="resultsTable" border="1">
+        <tr>
+            <th><h2 class="headerOfTable">X</h2></th>
+            <th><h2 class="headerOfTable">Y</h2></th>
+            <th><h2 class="headerOfTable">R</h2></th>
+            <th><h2 class="headerOfTable">Ответ</h2></th>
+            <th><h2 class="headerOfTable">Время выполнения (наносекунды)</h2></th>
+            <th><h2 class="headerOfTable">Время на сервере</h2></th>
+        </tr>
+    </table>
+</div>
 <script charset="utf-8" type="text/javascript">
     // Создаем список чисел от -4 до 5
     const numbers = [-3, -2, -1, 0, 1, 2, 3, 4, 5];
