@@ -1,0 +1,117 @@
+/*Селекторы элементов*/
+body {
+    background-color: #2C2F33;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7289DA;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5B6EAE;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/*Каскадная таблица*/
+.header {
+    text-align: left;
+}
+
+.header h1 {
+    font-family: monospace;
+    font-size: 50px; /* Размер шрифта заголовка */
+    color: #7289DA; /* Цвет шрифта заголовка */
+}
+
+.header h3 {
+    font-family: monospace;
+    font-size: 20px; /* Размер шрифта заголовка */
+    color: white; /* Цвет шрифта заголовка */
+}
+
+/*Селекторы классов*/
+.container {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 80%; /* Уменьшаем масштаб контейнера */
+    margin: 0 auto; /* Центрируем контейнер */
+}
+
+.left-block {
+    padding: 10px;
+    left: 10%;
+}
+
+.right-block {
+    padding: 10px;
+}
+
+/*Селекторы идентификаторов*/
+#graph {
+    width: 30%;
+    padding: 10px;
+    left: 35%; /* Центрируем график */
+    align-content: center;
+}
+
+#radios {
+    display: flex;
+    justify-content: center; /* Выравнивание радио-кнопок по центру */
+}
+
+#buttons {
+    width: 10%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+/* Комбинация селекторов */
+#table th {
+    background-color: #23272A;
+}
+
+/* Селекторы атрибутов */
+input[type="number"] {
+    justify-content: center;
+    align-items: center;
+
+    padding: 5%;
+    border: none;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 300px;
+    background-color: #23272A;
+    color: #FFFFFF;
+}
+
+/* Каскадирование */
+h1.results{
+    font-family: "Lucida Console", Courier, monospace;
+    text-align: left;
+}
+
+h2.headerOfTable{
+    font-family: "Lucida Console", Courier, monospace;
+    text-align: center;
+}
+
+h4.input{
+    font-family: "Lucida Console", Courier, monospace;
+    text-align: center;
+}
