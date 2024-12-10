@@ -1,0 +1,52 @@
+body {
+    background-color: #1a1e24;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 10px;
+    padding: 20px;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+    color: #e0e0e0;
+    margin: 10px;
+    font-size: 24px;
+}
+
+a{
+    font-family: Arial, sans-serif;
+    color: #e0e0e0;
+    margin: 10px;
+}
+
+.custom-button {
+    background-color: #00509e;
+    color: #e0e0e0;
+
+    text-align: center;
+    margin: 20px;
+
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.custom-button:hover {
+    background-color: #5984af; /* Более светлый синий при наведении */
+}
+
+#clock {
+    font-size: 32px;
+    color: #e0e0e0; /* Светло-серый текст часов */
+    text-align: center;
+    margin-top: 20px;
+}

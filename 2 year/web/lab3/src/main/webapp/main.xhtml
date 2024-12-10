@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Проверка попадания точки</title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico"/>
+    <link rel="stylesheet" href="templates/main.css"/>
+</h:head>
+<h:body>
+    <h:form class="container">
+        <h:commandButton  value="index page" action="goToIndex" style="
+        background-color: #2C2F33;
+        color: #e0e0e0;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px;
+        margin-left: 0px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;"/>
+        <section class="block plot-section">
+            <div class="graph">
+                <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg" id="graph-svg">
+                    <!-- Оси со стрелками -->
+                    <line stroke="gray" x1="0" x2="300" y1="150" y2="150"></line>
+                    <line stroke="gray" x1="150" x2="150" y1="0" y2="300"></line>
+                    <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
+                    <polygon fill="white" points="300,150 285,156 285,144" stroke="white"></polygon>
+
+                    <!-- Засечки -->
+                    <line stroke="gray" x1="200" x2="200" y1="155" y2="145"></line>
+                    <line stroke="gray" x1="250" x2="250" y1="155" y2="145"></line>
+
+                    <line stroke="gray" x1="50" x2="50" y1="155" y2="145"></line>
+                    <line stroke="gray" x1="100" x2="100" y1="155" y2="145"></line>
+
+                    <line stroke="gray" x1="145" x2="155" y1="100" y2="100"></line>
+                    <line stroke="gray" x1="145" x2="155" y1="50" y2="50"></line>
+
+                    <line stroke="gray" x1="145" x2="155" y1="200" y2="200"></line>
+                    <line stroke="gray" x1="145" x2="155" y1="250" y2="250"></line>
+
+                    <!-- Подписи к засечкам    -->
+                    <text fill="white" x="195" y="140">R/2</text>
+                    <text fill="white" x="248" y="140">R</text>
+
+                    <text fill="white" x="40" y="140">-R</text>
+                    <text fill="white" x="90" y="140">-R/2</text>
+
+                    <text fill="white" x="160" y="105">R/2</text>
+                    <text fill="white" x="160" y="55">R</text>
+
+                    <text fill="white" x="160" y="205">-R/2</text>
+                    <text fill="white" x="160" y="255">-R</text>
+
+                    <text fill="white" x="160" y="10">Y</text>
+                    <text fill="white" x="290" y="140">X</text>
+
+                    <!-- Прямоугольник -->
+                    <rect x="150" y="100" width="100" height="50" fill="#0000FF" fill-opacity="0.2"
+                          stroke="#0000FF"></rect>
+
+                    <!-- Треугольник -->
+                    <polygon fill="#0000FF" fill-opacity="0.2" points="150,250 150,150 250,150"
+                             stroke="#0000FF"></polygon>
+
+                    <path d="M 150 200 A 100, 100, 0, 0, 1, 100 150 L 150 150 Z" fill-opacity="0.2" fill="#0000FF"
+                          stroke="#0000FF"></path>
+
+                </svg>
+                <div class='coordinates' id='coordinates' style="color: #2C2F33">TEST</div>
+            </div>
+        </section>
+        <h1>Проверка размещения утки</h1>
+
+        <h:outputLabel for="xInput" value="X: "/>
+        <br/>
+        <h:inputText id="xInput" onchange="updateX(this)" styleClass="input-field"/>
+        <br/>
+
+        <h:outputLabel for="yInput" value="Y: "/>
+        <div id="yInput" class="button-container">
+            <button class="yButton" value="-2">-2</button>
+            <button class="yButton" value="-1.5">-1.5</button>
+            <button class="yButton" value="-1">-1</button>
+            <button class="yButton" value="-0.5">-0.5</button>
+            <button class="yButton" value="0">0</button>
+            <button class="yButton" value="1">1</button>
+            <button class="yButton" value="2">2</button>
+        </div>
+        <br/>
+
+        <h:outputLabel for="rInput" value="R: "/>
+        <h:selectOneMenu id="rInput" value="#{pointBean.r}" styleClass="input-field">
+            <f:selectItem itemValue="1" itemLabel="1"/>
+            <f:selectItem itemValue="2" itemLabel="2"/>
+            <f:selectItem itemValue="3" itemLabel="3"/>
+            <f:selectItem itemValue="4" itemLabel="4"/>
+            <f:selectItem itemValue="5" itemLabel="5"/>
+        </h:selectOneMenu>
+        <br/>
+
+        <h:commandButton id="checkButton" value="Проверить" styleClass="button">
+            <f:ajax execute="@form"
+                    listener="#{checkPointBean.check(pointBean)}"
+                    render="resultsTable"/>
+        </h:commandButton>
+        <br/>
+
+
+        <h:dataTable id="resultsTable" value="#{checkPointBean.results}" var="result" styleClass="data-table">
+            <h:column>
+                <f:facet name="header">X</f:facet>
+                #{result.x}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Y</f:facet>
+                #{result.y}
+            </h:column>
+            <h:column>
+                <f:facet name="header">R</f:facet>
+                #{result.r}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Result</f:facet>
+                #{result.isHit}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Execution Time</f:facet>
+                #{result.execution_time}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Server Time</f:facet>
+                #{result.server_time}
+            </h:column>
+
+        </h:dataTable>
+
+        <h:inputHidden id="xH" value="#{pointBean.x}" converterMessage="Please enter digits only."/>
+        <h:inputHidden id="yH" value="#{pointBean.y}"/>
+
+
+    </h:form>
+
+    <script type="text/javascript">
+        let lastR = 1;
+
+        document.querySelectorAll(".yButton").forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Изменяем цвет фона для всех кнопок
+                document.querySelectorAll('.yButton').forEach(btn => btn.style.backgroundColor = "#00509e");
+                // Изменяем цвет фона для текущей кнопки
+                this.style.backgroundColor = "#012C56";
+                // Доступ к значению кнопки (если оно есть)
+                let buttonValue = this.getAttribute('value');
+                if (buttonValue) {
+                    updateY(buttonValue);
+                }
+            });
+        });
+
+        function updateX(input) {
+            document.getElementById("j_idt5:xH").value = input.value
+        }
+
+        function updateY(y) {
+            document.getElementById("j_idt5:yH").value = y
+        }
+
+        document.getElementById('graph-svg').addEventListener('click', function (event) {
+            const svgElement = document.getElementById('graph-svg');
+            // Получаем координаты клика относительно SVG
+            const rect = svgElement.getBoundingClientRect();
+            const xGraph = event.clientX - rect.left;
+            const yGraph = event.clientY - rect.top;
+
+            const r = document.getElementById("j_idt5:rInput").value; // Значение r должно быть задано в зависимости от вашей логики
+
+            // Отображаем координаты
+            const x = ((xGraph - 150) / 100 * r).toFixed(2);
+            const y = ((yGraph - 150) / 100 * -1 * r).toFixed(2);
+
+            document.getElementById("j_idt5:xH").value = x
+            document.getElementById("j_idt5:yH").value = y
+            document.getElementById("j_idt5:checkButton").click()
+        });
+
+
+        function drawDuck(x, y, r, answer) {
+            if (!(lastR === r)){
+                lastR = r
+                clearDucks()
+            }
+
+            const svgElement = document.getElementById('graph-svg');
+            if (!svgElement) {
+                console.error("SVG элемент не найден");
+                return;
+            }
+
+            const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+            image.setAttribute("x", (parseFloat(x) / parseFloat(r) * 100 + 150).toFixed(2));
+            image.setAttribute("y", (parseFloat(y) / parseFloat(r) * 100 * -1 + 150).toFixed(2));
+            image.setAttribute("width", "20");
+            image.setAttribute("height", "20");
+
+            if (answer) {
+                image.setAttribute("href", "static/duck.png"); // Цвет круга
+                image.setAttribute("class", "duck");
+            } else {
+                image.setAttribute("href", "static/cross.png"); // Цвет круга
+                image.setAttribute("class", "cross");
+            }
+            // Добавление круга в SVG
+            svgElement.appendChild(image);
+        }
+
+        function clearDucks() {
+            const svgElement = document.getElementById('graph-svg');
+
+            // Преобразуем HTMLCollection в массив и удаляем каждый элемент
+            const images = svgElement.getElementsByTagName('image');
+            const imageArray = Array.from(images);
+
+            // Добавляем анимацию только к уткам
+            imageArray.forEach(image => {
+                if (image.classList.contains('duck')) { // Проверяем, является ли это уткой
+                    image.setAttribute("class", "swimming");
+
+                    // Удаляем элемент после завершения анимации
+                    image.addEventListener('animationend', () => {
+                        svgElement.removeChild(image);
+                    });
+                } else {
+                    svgElement.removeChild(image);
+                }
+            });
+        }
+    </script>
+</h:body>
+</html>

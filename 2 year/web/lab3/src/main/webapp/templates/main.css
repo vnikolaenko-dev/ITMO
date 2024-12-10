@@ -1,0 +1,107 @@
+/* Основные стили для body */
+body {
+    background-color: #1A1E24; /* Темно-синий фон */
+    color: #EAEAEA; /* Светлый текст */
+    font-family: Arial, sans-serif;
+}
+
+/* Стили для секции с графиком */
+.plot-section {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #2C2F33; /* Темно-серая область графика */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили для заголовков */
+h1 {
+    text-align: center;
+    color: #e0e0e0;; /* Яркий синий цвет для заголовка */
+}
+
+/* Стили для форм */
+.form-container {
+    margin: 20px auto;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #2C2F33; /* Темно-серая форма */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили для инпутов */
+.input-field {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #00509e; /* Яркий синий бордер */
+    border-radius: 5px;
+    background-color: #3A3D42; /* Темно-серая область ввода */
+    color: #EAEAEA; /* Светлый текст */
+}
+
+/* Стили для кнопок */
+.yButton {
+    background-color: #00509e; /* Яркий синий фон кнопки */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Задает одинаковую ширину для всех кнопок */
+    margin-right: 15px; /* Добавляет отступ между кнопками */
+}
+
+.yButton:hover {
+    background-color: #072a4d; /* Темно-синий при наведении */
+}
+
+.button {
+    background-color: #00509e; /* Яркий синий фон кнопки */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 95%; /* Задает одинаковую ширину для всех кнопок */
+    margin-right: 15px; /* Добавляет отступ между кнопками */
+}
+
+.button:hover {
+    background-color: #072a4d; /* Темно-синий при наведении */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row; /* Располагает кнопки в столбик */
+}
+
+
+/* Стили для таблицы результатов */
+.data-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.data-table th {
+    background-color: #00509e; /* Яркий синий фон заголовков таблицы */
+    color: white;
+}
+
+.data-table td {
+    background-color: #2C2F33; /* Темно-серая область ячеек */
+    color: #EAEAEA; /* Светлый текст */
+}
+
+@keyframes swim {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-200px); /* Измените значение на нужное вам */
+        opacity: 0;
+    }
+}
+
+.swimming {
+    animation: swim 2s forwards; /* Длительность анимации 2 секунды */
+}

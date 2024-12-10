@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Главная</title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico"/>
+    <link rel="stylesheet" href="templates/style.css"/>
+
+</h:head>
+<h:body>
+    <img src="static/duck.png" align="center" width="300" height="300"/>
+    <header id="welcomepage-header">
+        <h1>Web-programming | Laboratory work no. 3 | Var 115226 </h1>
+        <div id="credit">
+            <a href="https://github.com/vnikolaenko-dev">Nikolaenko Victor | P3206</a>
+        </div>
+    </header>
+
+    <h:form>
+        <h:commandButton id="openButton" value="main page" action="goToMain" styleClass="custom-button"/>
+    </h:form>
+
+    <div id="clock"> </div>
+
+    <script>
+        const clockDiv = document.getElementById('clock');
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            clockDiv.innerText = hours + ":" + minutes + ":" + seconds;
+            console.log(hours, minutes, seconds)
+        }
+
+        setInterval(updateClock, 7000);
+        updateClock();
+    </script>
+
+</h:body>
+</html>
