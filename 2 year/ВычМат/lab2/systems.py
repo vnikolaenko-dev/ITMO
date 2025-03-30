@@ -26,29 +26,54 @@ def plot_system(system):
     plt.show()
 
 
+def check_convergence(phi1, phi2, x0, y0):
+    try:
+        diff1_x = abs((phi1(x0 + 1e-5, y0) - phi1(x0, y0)) / 1e-5)
+        diff1_y = abs((phi1(x0, y0 + 1e-5) - phi1(x0, y0)) / 1e-5)
+        diff2_x = abs((phi2(x0 + 1e-5, y0) - phi2(x0, y0)) / 1e-5)
+        diff2_y = abs((phi2(x0, y0 + 1e-5) - phi2(x0, y0)) / 1e-5)
+        q = max(diff1_x + diff1_y, diff2_x + diff2_y)
+        print("q =", q)
+        return q < 1
+    except:
+        return False
+
+
 # Метод простых итераций для системы уравнений
-def simple_iterations(phi1, phi2, x0, epsilon, max_iterations=1000):
+def simple_iterations(f, phi1, phi2, x0, epsilon, max_iterations=1000):
     x = np.array(x0, dtype=float)
+    n = 0
+
+    if not check_convergence(phi1, phi2, x[0], x[1]) or check_convergence(phi1, phi2, x[0], x[1]) is None:
+        print("Метод может не сойтись")
 
     for iteration in range(max_iterations):
+        n += 1
         # Вычисление новых значений переменных
         x1 = phi1(x[0], x[1])
         x2 = phi2(x[0], x[1])
 
-        # Проверка сходимости
-        if np.abs(x1 - x[0]) < epsilon and np.abs(x2 - x[1]) < epsilon:
+        if x1 is None or x2 is None:
+            print("Возникла ошибка при вычислении, корень не может быть найден")
+            return [None, None]
+
+        print(n, x1, x2, x1 - x[0], x2 - x[1])
+        # Проверка окончания вычислений
+        max_dif = max(abs(x1 - x[0]), abs(x2 - x[1]))
+        if max_dif < epsilon and (abs(f([x1, x2])[0]) < epsilon and abs(f([x1, x2])[1]) < epsilon):
+            print("Результат: ", f([x[0], x2])[0], f([x1, x2])[1])
             return x1, x2
 
         # Обновление значений для следующей итерации
         x[0], x[1] = x1, x2
 
-    print("Не удалось найти решение за максимальное количество итераций.")
+    print("Результат: ", f(x)[0], f(x)[1])
     return x[0], x[1]
 
 
 def s1(xy):
     x, y = xy
-    return [np.sin(x + y) - (1.5 * x - 0.1), x ** 2 + 2 * y ** 2 - 1]
+    return [np.sin(y) - 1.5 * x + 0.1, x ** 2 + 2 * y ** 2 - 1]
 
 
 def s2(xy):
@@ -67,19 +92,19 @@ def s1_phi2(x, y):
     if (1 - x ** 2) >= 0:  # Проверка на допустимость значения под корнем
         return np.sqrt((1 - x ** 2) / 2)
     else:
-        return -np.sqrt((1 - x ** 2) / 2)  # Второй корень, который может быть правильным для некоторых случаев
+        return None  # Второй корень, который может быть правильным для некоторых случаев
 
 
 # Преобразования для метода простых итераций
 def s2_phi1(x, y):
-    return pow((3 * y), 1/3)
+    return pow((3 * y), 1 / 3)
 
 
 def s2_phi2(x, y):
-    if x < 0:
+    if x <= 0:
         return math.sqrt(-x)
     else:
-        return 0
+        return None
 
 
 def run():
@@ -97,37 +122,15 @@ def run():
     # Строим график системы уравнений
     if u == "1":
         plot_system(s1)
-        # Начальное приближение и точность
-        x0 = [0.5, 0.5]
-        epsilon = 1e-5
-
-        # Решаем систему уравнений методом простых итераций
-        x1, x2 = simple_iterations(s1_phi1, s1_phi2, x0, epsilon)
-        print(f"Решение методом простых итераций: x = {x1}, y = {x2}")
-
-        # Решение с использованием fsolve для сравнения
-        solution1 = fsolve(s1, x0)
-        print("Первое решение fsolve:", solution1)
-
         # Второй набор начальных приближений
-        x0 = [-1, 0]
-        x1, x2 = simple_iterations(s1_phi1, s1_phi2, x0, epsilon)
-        print(f"Решение методом простых итераций для (-0.5, -0.5): x = {x1}, y = {x2}")
+        x0 = [float(input("Введите координату точки приближения по X: ")),
+              float(input("Введите координату точки приближения по Y: "))]
+        x1, x2 = simple_iterations(s1, s1_phi1, s1_phi2, x0, float(input("Введите допустимую погрешность: ")))
+        print(f"Решение методом простых итераций: x = {x1}, y = {x2}")
     else:
         plot_system(s2)
-        # Начальное приближение и точность
-        x0 = [0.5, 0.5]
-        epsilon = 1e-5
-
-        # Решаем систему уравнений методом простых итераций
-        x1, x2 = simple_iterations(s2_phi1, s2_phi2, x0, epsilon)
-        print(f"Решение методом простых итераций: x = {x1}, y = {x2}")
-
-        # Решение с использованием fsolve для сравнения
-        solution1 = fsolve(s2, x0)
-        print("Первое решение fsolve:", solution1)
-
         # Второй набор начальных приближений
-        x0 = [-1, 0]
-        x1, x2 = simple_iterations(s2_phi1, s2_phi2, x0, epsilon)
-        print(f"Решение методом простых итераций для (-0.5, -0.5): x = {x1}, y = {x2}")
+        x0 = [float(input("Введите координату точки приближения по X: ")),
+              float(input("Введите координату точки приближения по Y: "))]
+        x1, x2 = simple_iterations(s2, s2_phi1, s2_phi2, x0, float(input("Введите допустимую погрешность: ")))
+        print(f"Решение методом простых итераций: x = {x1}, y = {x2}")

@@ -125,8 +125,7 @@ def newton_method(f, df, a, b, eps, ddf):
     elif f(b) * ddf(b) > 0:
         x0 = b
     else:
-        print("Ошибка: на данном интервале нет корня или их несколько.")
-        return
+        x0 = a
     plot_function(f, a, b)
 
     if f(a) * f(b) > 0:
@@ -134,21 +133,18 @@ def newton_method(f, df, a, b, eps, ddf):
         return
     elif df(x0) * ddf(x0) > 0:
         print("Условие сходимости не выполняется.")
-        return
 
     n = 0
     while True:
-        x = x0 - f(x0) / df(x0)  # Вычисление следующей аппроксимации
-        print(f"{n} \t Промежуточное значение x: {x};\t Значение функции в x: {f(x)};")
-
-        # Проверка на завершение вычислений по критерию сходимости
-        if (x - x0) <= eps or abs(f(x) / df(x)) <= eps or abs(f(x)) <= eps:
-            break
-
+        x = x0 - f(x0) / df(x0)  # Вычисление следующего приближение
         n += 1
+        # Проверка на завершение вычислений по критерию сходимости
+        if abs(x - x0) <= eps and abs(f(x0)) <= eps:
+            break
         x0 = x  # Обновление точки для следующей итерации
+        print(f"{n} \t Промежуточное значение x: {x0};\t Значение функции в x: {f(x0)};")
 
-    print(f"----Конечный корень: {x}, значение функции в корне: {f(x)}")
+    print(f"----Конечный корень: {x0}, значение функции в корне: {f(x0)}")
     print(f"----Число итераций: {n}")
 
 
@@ -160,7 +156,9 @@ def simple_iteration_method(f, df, a, b, eps):
         return
 
     # Вычисляем константу для сходимости
-    lambda_ = -1 / max(abs(df(a)), abs(df(b)))  # Выбор lambda для сходимости
+    lambda_ = -1 / max(abs(df(a)), abs(df(b)))
+    if df(a) < 0 and df(b) < 0:
+        lambda_ = 1 / max(abs(df(a)), abs(df(b)))  # Выбор lambda для сходимости
     print(f"Используем lambda = {lambda_} для сходимости.")
 
     # Функция итераций
@@ -174,6 +172,7 @@ def simple_iteration_method(f, df, a, b, eps):
     # Проверяем, что |phi'(x)| < 1 на интервале [a, b]
     if max(abs(d_phi(a)), abs(d_phi(b))) >= 1:
         print("ВНИМАНИЕ: Условие сходимости не выполнено. Последовательность может не сойтись.")
+        print(abs(d_phi(a)), abs(d_phi(b)))
         print("Хотите продолжить? [y/n]")
         answer = input().strip().lower()
         if answer != "y":
@@ -190,7 +189,7 @@ def simple_iteration_method(f, df, a, b, eps):
         print(f"{n}\t x0 = {x0:.6f},\t x1 = {x1:.6f},\t |x1 - x0| = {abs(x1 - x0):.6f}")
 
         # Проверка на завершение
-        if abs(x1 - x0) < eps:
+        if abs(x1 - x0) < eps and abs(f(x1)) < eps:
             print(f"----Конечный корень: {x1:.6f}, значение функции в корне: {f(x1):.6f}")
             print(f"----Число итераций: {n}")
             return x1
