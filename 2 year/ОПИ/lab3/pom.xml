@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Основные данные проекта -->
+    <groupId>org.example</groupId>
+    <artifactId>web3</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>web3 Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+
+    <!-- Зависимости проекта -->
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>javax.faces-api</artifactId>
+            <version>2.3</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.3.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>14.0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.11.0</version> <!-- Актуальная версия на момент написания -->
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- Свойства проекта -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- Кодировка исходных файлов -->
+        <maven.compiler.source>17</maven.compiler.source> <!-- Версия исходного кода -->
+        <maven.compiler.target>17</maven.compiler.target> <!-- Целевая версия компиляции -->
+        <main.class>com.example.Main</main.class> <!-- Основной класс для запуска -->
+        <scp.host>user@server:/path/to/deploy/</scp.host> <!-- Хост для SCP -->
+        <jvm.args>-Xmx512m -Dfile.encoding=UTF-8</jvm.args> <!-- Параметры JVM -->
+    </properties>
+
+
+    <profiles>
+        <profile>
+            <id>build</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>profile-build-compile</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>profile-build-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>additional</classifier>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>play-music</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>net.proselyte.web3.system.MusicPlayer</mainClass>
+                                    <arguments>
+                                        <argument>${project.basedir}/src/main/resources/sound.wav</argument>
+                                    </arguments>
+                                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>3.3.2</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- Профиль: javadoc -->
+        <profile>
+            <id>javadoc</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <activation>
+                <property>
+                    <name>generateJavadoc</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <configuration>
+                            <charset>UTF-8</charset>
+                            <docencoding>UTF-8</docencoding>
+                            <source>17</source>
+                            <excludePackageNames>com.example.internal.*</excludePackageNames>
+                            <javadocExecutable>${env.JAVA_HOME}/javadoc.exe</javadocExecutable>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Профиль: генерации хешей -->
+        <profile>
+            <id>hash</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <activation>
+                <property>
+                    <name>generateChecksums</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>generate-checksums</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <checksum
+                                                file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
+                                                algorithm="MD5"/>
+                                        <checksum
+                                                file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
+                                                algorithm="SHA-1"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Профиль: выполнение внешних приложений -->
+        <profile>
+            <id>xml</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <activation>
+                <property>
+                    <name>checkXML</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>xml</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>net.proselyte.web3.system.XmlValidator</mainClass>
+                                    <arguments>
+                                        <argument>${project.basedir}/src/main/resources/</argument>
+                                        <argument>${project.basedir}/src/main/webapp/WEB-INF/</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>scp</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <activation>
+                <property>
+                    <name>scp</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>upload-to-server</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>pscp</executable>
+                                    <arguments>
+                                        <argument>-P</argument>
+                                        <argument>2222</argument>
+                                        <argument>-pw</argument>
+                                        <argument>Htmn}5140</argument>
+                                        <argument>${project.build.directory}/${project.build.finalName}.jar</argument>
+                                        <argument>s409244@se.ifmo.ru:/home/studs/s409244/opi2/</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>custom-environment</id>
+            <activation>
+                <!-- Данный профиль активируется, если присутствует системная переменная, например, MAVEN_ENV -->
+                <property>
+                    <name>env</name>
+                    <value>custom</value>
+                </property>
+            </activation>
+            <properties>
+                <!-- Устанавливаем версию Java для окружения -->
+                <java.version>11</java.version>
+                <!-- Определяем дополнительные аргументы для JVM -->
+                <maven.compiler.source>11</maven.compiler.source>
+                <maven.compiler.target>11</maven.compiler.target>
+                <skipTests>true</skipTests>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.1</version>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <target>${java.version}</target>
+                        </configuration>
+                    </plugin>
+                    <!-- Добавление плагина для запуска программы с JVM аргументами -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <java jar="${project.build.directory}/${project.build.finalName}.jar"
+                                              fork="true">
+                                            <jvmarg value="-Xmx1024m"/>
+                                            <jvmarg value="-DmyProperty=value"/>
+                                        </java>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>alt</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <activation>
+                <!-- Профиль активируется при наличии свойства alt в командной строке -->
+                <property>
+                    <name>alt</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Плагин для выполнения задач с помощью Ant -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <!-- Задача для замены имен классов и переменных
+                                        <replace dir="${basedir}/src/main/java/net/proselyte/web3/system" token="OldClassName"
+                                                 value="NewClassName"/> -->
+                                        <replace dir="${basedir}/src/main/java" token="oldVariable"
+                                                 value="newVariable"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>team</id>
+            <properties>
+                <skipTests>true</skipTests>
+                <prev.revision.dir>${project.build.directory}/prev-revision</prev.revision.dir>
+            </properties>
+            <activation>
+                <property>
+                    <name>team</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- 1. Получаем хеш текущего коммита -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>get-current-commit</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>git</executable>
+                                    <arguments>
+                                        <argument>rev-parse</argument>
+                                        <argument>--short</argument>
+                                        <argument>HEAD</argument>
+                                    </arguments>
+                                    <outputFile>${project.build.directory}/current-commit.txt</outputFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- 2. Собираем текущую ревизию с уникальным классификатором -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>current-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>current</classifier>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <finalName>${project.artifactId}-${project.version}-previous</finalName>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- 3. Собираем предыдущую ревизию -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>build-prev-revision</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>bash</executable>
+                                    <arguments>
+                                        <argument>-c</argument>
+                                        <argument>
+                                            git checkout HEAD~1 &amp;&amp;
+                                            mvn clean package -DskipTests &amp;&amp;
+                                            mkdir -p ${prev.revision.dir} &amp;&amp;
+                                            cp ${project.build.directory}/*.jar ${prev.revision.dir}/ &amp;&amp;
+                                            git checkout -
+                                        </argument>
+                                    </arguments>
+                                    <workingDirectory>${project.basedir}</workingDirectory>
+                                    <successCodes>
+                                        <successCode>0</successCode>
+                                        <successCode>1</successCode>
+                                    </successCodes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- 4. Упаковываем обе версии в архив -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/zip.xml</descriptor>
+                                    </descriptors>
+                                    <finalName>${project.artifactId}-${project.version}-with-history</finalName>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+
+        <profile>
+            <id>report</id>
+            <properties>
+                <skipTests>false</skipTests>
+            </properties>
+            <activation>
+                <property>
+                    <name>report</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.2.5</version>
+                        <configuration>
+                            <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>git-add-reports</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <workingDirectory>${basedir}</workingDirectory>
+                                    <executable>git</executable>
+                                    <arguments>
+                                        <argument>add</argument>
+                                        <argument>-f</argument>
+                                        <argument>target/surefire-reports/</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>git-commit-reports</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <workingDirectory>${basedir}</workingDirectory>
+                                    <executable>git</executable>
+                                    <arguments>
+                                        <argument>commit</argument>
+                                        <argument>-m</argument>
+                                        <argument>[CI] Update test reports</argument>
+                                        <argument>--allow-empty</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
