@@ -23,19 +23,23 @@ def table_input():
 
     ans = solve(x, xs, ys)
 
+    correct_s = False
+    sti = 0
     try:
-        s = stirling_interpolation(x, xs, ys, None, True)
+        sti = stirling_interpolation(x, xs, ys, None, True)
         plot_stirling_polynomial(x, xs, ys)
-        print(f"| Стирлинга             | {s:10.6f}")
-        ans.append(s)
+        print(f"| Стирлинга             | {sti:10.6f}")
+        correct_s = True
     except Exception as err:
         print(err)
 
+    correct_b = False
+    bes = 0
     try:
-        b = bessel_interpolation(x, xs, ys, True)
+        bes = bessel_interpolation(x, xs, ys, True)
         plot_bessel_polynomial(x, xs, ys)
-        print(f"| Бесселя               | {b:10.6f}")
-        ans.append(b)
+        print(f"| Бесселя               | {bes:10.6f}")
+        correct_b = True
     except Exception as err:
         print(err)
 
@@ -44,8 +48,8 @@ def table_input():
     print(f"| Ньютона             | {ans[0]:10.6f}")
     print(f"| Лагранжа            | {ans[1]:10.6f}")
     print(f"| Гаусса              | {ans[2]:10.6f}")
-    print(f"| Стирлинга           | {ans[3]:10.6f}")
-    print(f"| Бесселя             | {ans[4]:10.6f}")
+    if correct_s: print(f"| Стирлинга           | {sti:10.6f}")
+    if correct_b: print(f"| Бесселя             | {bes:10.6f}")
     print("-" * 80)
 
 

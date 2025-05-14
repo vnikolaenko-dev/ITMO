@@ -19,10 +19,14 @@ def stirling_interpolation(x, xs, ys, mid_idx=None, show=False):
     if n < 2:
         raise ValueError("Должно быть минимум 2 узла интерполяции")
 
-    # Центральный индекс: если не указан, выбираем ближайший к x
-    if mid_idx is None:
-        mid_idx = np.argmin(np.abs(xs - x))
+    # Находим центральный интервал
+    mid_idx = n // 2
     t = (x - xs[mid_idx]) / h
+    if show and (abs(t) > 0.25): raise ValueError("Неподходящий t", f"{t}")
+
+
+    if show and abs(t) > 0.25:
+        raise ValueError("t > 0.25")
 
     # Центральные разности
     delta = np.zeros((n, n))

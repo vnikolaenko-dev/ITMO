@@ -1,7 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
-
 def bessel_interpolation(x, xs, ys, show=False) -> float:
     """
     Интерполяция Бесселя для равноотстоящих узлов.
@@ -32,8 +30,9 @@ def bessel_interpolation(x, xs, ys, show=False) -> float:
 
     n = len(xs)
     # Находим центральный интервал
-    mid_idx = min(range(n - 1), key=lambda i: abs(x - (xs[i] + xs[i + 1]) / 2))
-    t = (x - (xs[mid_idx] + xs[mid_idx + 1]) / 2) / h  # Нормированная координата
+    mid_idx = n // 2
+    t = (x - xs[mid_idx]) / h
+    if show and (abs(t) < 0.25 or abs(t) > 0.75): raise ValueError("Неподходящий t", f"{t}")
 
     # Вычисляем центральные разности
     differences = [ys.copy()]
