@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Cars</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Manage Cars</h1>
+        <div class="header-buttons">
+            <a href="main.html" class="back-link">← Back to Main</a>
+            <button onclick="showCreateCarForm()" class="primary-btn">+ Create New Car</button>
+        </div>
+    </div>
+
+    <!-- Форма создания автомобиля -->
+    <div id="createCarForm" style="display: none; margin-bottom: 20px; padding: 20px; background: rgba(57, 62, 70, 0.5); border-radius: 8px;">
+        <h3>Create New Car</h3>
+        <div class="form-group">
+            <label for="newCarName">Car Name:</label>
+            <input type="text" id="newCarName" placeholder="Enter car name" required>
+        </div>
+        <div class="form-group">
+            <label for="newCarCool">Is Cool:</label>
+            <select id="newCarCool">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <div class="buttons-container">
+            <button onclick="createCar()" class="primary-btn">Create Car</button>
+            <button onclick="hideCreateCarForm()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Таблица автомобилей -->
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Cool</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="carsTableBody"></tbody>
+    </table>
+
+    <p id="errorMessage" class="error"></p>
+    <p id="successMessage" class="success"></p>
+</div>
+
+<script src="js/cars.js"></script>
+<script src="js/modal.js"></script>
+<!-- Модальное окно для ошибок -->
+<div id="errorModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <div class="modal-icon">⚠️</div>
+            <h3 class="modal-title" id="modalErrorTitle">Error</h3>
+        </div>
+        <div class="modal-content">
+            <p class="modal-message" id="modalErrorMessage"></p>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-secondary" onclick="hideErrorModal()">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

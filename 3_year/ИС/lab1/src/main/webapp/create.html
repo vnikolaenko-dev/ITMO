@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Human Being</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Create New Human Being</h1>
+        <a href="main.html" class="back-link">← Back to Main</a>
+    </div>
+
+    <form id="createForm" class="form-container">
+        <!-- Name Field -->
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required placeholder="Enter name">
+            <p class="error" id="nameError"></p>
+        </div>
+
+        <!-- Coordinates Selection -->
+        <div class="form-group">
+            <label for="coordinatesSelect">Coordinates:</label>
+            <select id="coordinatesSelect" onchange="toggleCoordinatesInput()">
+                <option value="">-- Select existing coordinates --</option>
+                <option value="new">+ Create new coordinates</option>
+            </select>
+
+            <div id="newCoordinates" style="display: none; margin-top: 15px; padding: 15px; background: rgba(57, 62, 70, 0.5); border-radius: 8px;">
+                <h3>Create New Coordinates</h3>
+                <label for="coordX">X (max 72):</label>
+                <input type="number" id="coordX" step="any" max="72" placeholder="Enter X coordinate">
+
+                <label for="coordY">Y (max 78):</label>
+                <input type="number" id="coordY" max="78" placeholder="Enter Y coordinate">
+
+                <button type="button" onclick="createNewCoordinates()">Create Coordinates</button>
+            </div>
+            <p class="error" id="coordinatesError"></p>
+        </div>
+
+        <!-- Real Hero -->
+        <div class="form-group">
+            <label for="realHero">Real Hero:</label>
+            <input type="checkbox" id="realHero">
+        </div>
+
+        <!-- Has Toothpick -->
+        <div class="form-group">
+            <label for="hasToothpick">Has Toothpick:</label>
+            <select id="hasToothpick" required>
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+            <p class="error" id="hasToothpickError"></p>
+        </div>
+
+        <!-- Car Selection -->
+        <div class="form-group">
+            <label for="carSelect">Car:</label>
+            <select id="carSelect" onchange="toggleCarInput()">
+                <option value="">-- Select existing car --</option>
+                <option value="new">+ Create new car</option>
+            </select>
+
+            <div id="newCar" style="display: none; margin-top: 15px; padding: 15px; background: rgba(57, 62, 70, 0.5); border-radius: 8px;">
+                <h3>Create New Car</h3>
+                <label for="carName">Car Name:</label>
+                <input type="text" id="carName" placeholder="Enter car name">
+
+                <label for="carCool">Is Cool:</label>
+                <select id="carCool">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <p class="error" id="carError"></p>
+        </div>
+
+        <!-- Mood -->
+        <div class="form-group">
+            <label for="mood">Mood:</label>
+            <select id="mood" required>
+                <option value="">-- Select mood --</option>
+                <option value="LONGING">LONGING</option>
+                <option value="GLOOM">GLOOM</option>
+                <option value="RAGE">RAGE</option>
+            </select>
+            <p class="error" id="moodError"></p>
+        </div>
+
+        <!-- Impact Speed -->
+        <div class="form-group">
+            <label for="impactSpeed">Impact Speed ( > -309 ):</label>
+            <input type="number" id="impactSpeed" step="any" placeholder="Enter impact speed">
+            <p class="error" id="impactSpeedError"></p>
+        </div>
+
+        <!-- Minutes Of Waiting -->
+        <div class="form-group">
+            <label for="minutesOfWaiting">Minutes Of Waiting:</label>
+            <input type="number" id="minutesOfWaiting" step="any" required placeholder="Enter minutes">
+            <p class="error" id="minutesOfWaitingError"></p>
+        </div>
+
+        <!-- Weapon Type -->
+        <div class="form-group">
+            <label for="weaponType">Weapon Type:</label>
+            <select id="weaponType">
+                <option value="">None</option>
+                <option value="HAMMER">HAMMER</option>
+                <option value="AXE">AXE</option>
+                <option value="PISTOL">PISTOL</option>
+                <option value="MACHINE_GUN">MACHINE_GUN</option>
+                <option value="BAT">BAT</option>
+            </select>
+        </div>
+
+        <div class="buttons-container">
+            <button type="submit" class="primary-btn">Create Human Being</button>
+            <button type="button" onclick="window.location.href='main.html'">Cancel</button>
+        </div>
+    </form>
+
+    <p id="errorMessage" class="error"></p>
+    <p id="successMessage" class="success"></p>
+</div>
+
+<script src="js/create.js"></script>
+<script src="js/modal.js"></script>
+<!-- Модальное окно для ошибок -->
+<div id="errorModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <div class="modal-icon">⚠️</div>
+            <h3 class="modal-title" id="modalErrorTitle">Error</h3>
+        </div>
+        <div class="modal-content">
+            <p class="modal-message" id="modalErrorMessage"></p>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-secondary" onclick="hideErrorModal()">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

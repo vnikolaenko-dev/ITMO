@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="main-header">
+    <div class="header-content">
+        <h1>Human Beings Manager</h1>
+        <nav class="main-nav">
+            <div class="nav-group">
+                <a href="create.html" class="nav-btn primary-btn">
+                    <span>+ Create Human</span>
+                </a>
+                <a href="cars.html" class="nav-btn">
+                    <span>🚗 Cars</span>
+                </a>
+                <a href="coordinates.html" class="nav-btn">
+                    <span>📍 Coordinates</span>
+                </a>
+                <a href="special.html" class="nav-btn">
+                    <span>⚡ Special</span>
+                </a>
+            </div>
+            <div class="nav-group">
+                <button onclick="logout()" class="nav-btn logout-btn">
+                    <span>🚪 Logout</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+<input type="text" id="filterInput" placeholder="Filter by name (exact match)" style="padding: 10px; margin: 15px">
+<select id="sortColumn" style="padding: 10px">
+    <option value="id">Sort by id</option>
+    <option value="idReverse">Sort by id reverse</option>
+    <option value="name">Sort by name</option>
+    <option value="nameReverse">Sort by name reverse</option>
+    <option value="coordinates.x">Sort by coordinate x</option>
+    <option value="coordinates.xReverse">Sort by coordinate x reverse</option>
+    <option value="coordinates.y">Sort by coordinate y</option>
+    <option value="coordinates.yReverse">Sort by coordinate y reverse</option>
+    <option value="creationDate">Sort by creation date</option>
+    <option value="creationDateReverse">Sort by creation date reverse</option>
+    <option value="car.name">Sort by car name</option>
+    <option value="car.nameReverse">Sort by car name reverse</option>
+    <option value="mood">Sort by mood</option>
+    <option value="moodReverse">Sort by mood reverse</option>
+    <option value="impactSpeed">Sort by impactSpeed</option>
+    <option value="impactSpeedReverse">Sort by impactSpeed reverse</option>
+</select>
+<button onclick="applyFilterAndSort()">Apply</button>
+<table id="humanTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Coordinates X</th>
+        <th>Coordinates Y</th>
+        <th>Creation Date</th>
+        <th>Real Hero</th>
+        <th>Has Toothpick</th>
+        <th>Car Name</th>
+        <th>Car Cool</th>
+        <th>Mood</th>
+        <th>Impact Speed</th>
+        <th>Minutes Of Waiting</th>
+        <th>Weapon Type</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div id="pagination">
+    <button onclick="prevPage()">Previous</button>
+    <span id="pageInfo"></span>
+    <button onclick="nextPage()">Next</button>
+</div>
+<script src="js/main.js"></script>
+<script src="js/modal.js"></script>
+<!-- Модальное окно для ошибок -->
+<div id="errorModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <div class="modal-icon">⚠️</div>
+            <h3 class="modal-title" id="modalErrorTitle">Error</h3>
+        </div>
+        <div class="modal-content">
+            <p class="modal-message" id="modalErrorMessage"></p>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-primary" onclick="hideErrorModal()">OK</button>
+            <button class="modal-btn modal-btn-secondary" onclick="hideErrorModal()">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
