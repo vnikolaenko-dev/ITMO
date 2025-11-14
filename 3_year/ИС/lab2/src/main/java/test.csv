@@ -1,0 +1,9 @@
+name,coordinateX,coordinateY,realHero,hasToothpick,carName,carCool,mood,impactSpeed,minutesOfWaiting,weaponType
+Иван Петров,45.5,60,true,true,BMW,true,LONGING,150.5,30,PISTOL
+Мария Сидорова,30.2,45,false,false,Toyota,false,GLOOM,75.2,15,AXE
+Алексей Козлов,68.7,25,true,true,Mercedes,true,RAGE,250.8,60,MACHINE_GUN
+Ольга Новикова,15.3,70,false,true,Honda,false,LONGING,-50.0,20,HAMMER
+Дмитрий Волков,55.0,40,true,false,Audi,true,GLOOM,180.3,45,BAT
+Екатерина Морозова,25.8,55,false,true,Ford,false,RAGE,300.1,25,PISTOL
+Сергей Павлов,40.1,35,true,false,Volkswagen,true,LONGING,90.5,50,AXE
+Анна Лебедева,60.9,20,false,true,Nissan,false,GLOOM,120.7,35,MACHINE_GUN

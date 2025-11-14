@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Human Being</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<h1>Update Human Being</h1>
+<a href="main.html">Back to Main</a>
+<form id="updateForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <p class="error" id="nameError"></p>
+
+    <label for="coordinatesEntity">Coordinates:</label>
+    <select id="coordinatesEntity" name="coordinatesEntity" required></select>
+    <p class="error" id="coordinatesError"></p>
+
+    <label for="realHero">Real Hero:</label>
+    <input type="checkbox" id="realHero" name="realHero">
+
+    <label for="hasToothpick">Has Toothpick:</label>
+    <select id="hasToothpick" name="hasToothpick" required>
+        <option value="true">True</option>
+        <option value="false">False</option>
+    </select>
+    <p class="error" id="hasToothpickError"></p>
+
+    <label for="carEntity">Car:</label>
+    <select id="carEntity" name="carEntity" required></select>
+    <p class="error" id="carError"></p>
+
+    <label for="mood">Mood:</label>
+    <select id="mood" name="mood" required>
+        <option value="">Select Mood</option>
+        <option value="LONGING">LONGING</option>
+        <option value="GLOOM">GLOOM</option>
+        <option value="RAGE">RAGE</option>
+    </select>
+    <p class="error" id="moodError"></p>
+
+    <label for="impactSpeed">Impact Speed ( > -309 ):</label>
+    <input type="number" id="impactSpeed" name="impactSpeed" step="any">
+    <p class="error" id="impactSpeedError"></p>
+
+    <label for="minutesOfWaiting">Minutes Of Waiting:</label>
+    <input type="number" id="minutesOfWaiting" name="minutesOfWaiting" step="any" required>
+    <p class="error" id="minutesOfWaitingError"></p>
+
+    <label for="weaponType">Weapon Type:</label>
+    <select id="weaponType" name="weaponType">
+        <option value="">None</option>
+        <option value="HAMMER">HAMMER</option>
+        <option value="AXE">AXE</option>
+        <option value="PISTOL">PISTOL</option>
+        <option value="MACHINE_GUN">MACHINE_GUN</option>
+        <option value="BAT">BAT</option>
+    </select>
+
+    <button type="submit">Update</button>
+</form>
+<p id="errorMessage"></p>
+<script src="js/update.js"></script>
+<script src="js/modal.js"></script>
+<!-- Модальное окно для ошибок -->
+<div id="errorModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <div class="modal-icon">⚠️</div>
+            <h3 class="modal-title" id="modalErrorTitle">Error</h3>
+        </div>
+        <div class="modal-content">
+            <p class="modal-message" id="modalErrorMessage"></p>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-secondary" onclick="hideErrorModal()">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Operations</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      text-align: left !important;
+    }
+
+    div, section, article, header, footer, main, aside, nav {
+      text-align: left !important;
+      float: left !important;
+      width: 100% !important;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, a, span, li, td, th {
+      text-align: left !important;
+      float: none !important;
+      display: block !important;
+    }
+
+    input, select, button {
+      text-align: left !important;
+      float: left !important;
+    }
+
+    #weaponForLess, #deleteSpeed {
+      margin-left: 0 !important;
+    }
+  </style>
+</head>
+<body>
+<h1>Special Operations</h1>
+<a href="main.html">Back to Main</a>
+
+<div>
+  <h2>Delete by Impact Speed</h2>
+  <input type="number" id="deleteSpeed" placeholder="Impact Speed">
+  <button onclick="deleteByImpactSpeed()">Delete</button>
+</div>
+
+<div>
+  <h2>Get Average Impact Speed</h2>
+  <button onclick="getAvgSpeed()">Calculate</button>
+  <div>
+    <p id="avgSpeedResult"></p>
+  </div>
+</div>
+
+<div>
+  <h2>Get Humans with Weapon Type Less Than</h2>
+  <select id="weaponForLess">
+    <option value="HAMMER">HAMMER</option>
+    <option value="AXE">AXE</option>
+    <option value="PISTOL">PISTOL</option>
+    <option value="MACHINE_GUN">MACHINE_GUN</option>
+    <option value="BAT">BAT</option>
+  </select>
+  <button onclick="getByWeaponLess()">Get</button>
+  <div id="weaponLessResult"></div>
+</div>
+
+<div>
+  <h2>Delete Humans without Toothpick</h2>
+  <button onclick="deleteWithoutToothpick()">Delete</button>
+</div>
+
+<div>
+  <h2>Assign Red Lada to Humans without Car</h2>
+  <button onclick="assignLada()">Assign</button>
+</div>
+
+<p id="errorMessage"></p>
+<script src="js/special.js"></script>
+<script src="js/modal.js"></script>
+<!-- Модальное окно для ошибок -->
+<div id="errorModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title" id="modalErrorTitle">Error</h3>
+    </div>
+    <div class="modal-content">
+      <p class="modal-message" id="modalErrorMessage"></p>
+    </div>
+    <div class="modal-buttons">
+      <button class="modal-btn modal-btn-secondary" onclick="hideErrorModal()">Close</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

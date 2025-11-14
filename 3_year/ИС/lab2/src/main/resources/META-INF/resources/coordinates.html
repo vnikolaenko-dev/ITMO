@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Coordinates</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Manage Coordinates</h1>
+        <div class="header-buttons">
+            <a href="main.html" class="back-link">← Back to Main</a>
+            <button onclick="showCreateCoordinatesForm()" class="primary-btn">+ Create New Coordinates</button>
+        </div>
+    </div>
+
+    <!-- Форма создания координат -->
+    <div id="createCoordinatesForm" style="display: none; margin-bottom: 20px; padding: 20px; background: rgba(57, 62, 70, 0.5); border-radius: 8px;">
+        <h3>Create New Coordinates</h3>
+        <div class="form-group">
+            <label for="newCoordX">X (max 72):</label>
+            <input type="number" id="newCoordX" step="any" max="72" placeholder="Enter X coordinate" required>
+        </div>
+        <div class="form-group">
+            <label for="newCoordY">Y (max 78):</label>
+            <input type="number" id="newCoordY" max="78" placeholder="Enter Y coordinate" required>
+        </div>
+        <div class="buttons-container">
+            <button onclick="createCoordinates()" class="primary-btn">Create Coordinates</button>
+            <button onclick="hideCreateCoordinatesForm()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Таблица координат -->
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+        </tr>
+        </thead>
+        <tbody id="coordinatesTableBody"></tbody>
+    </table>
+
+    <p id="errorMessage" class="error"></p>
+    <p id="successMessage" class="success"></p>
+</div>
+
+<script src="js/coordinates.js"></script>
+<script src="js/modal.js"></script>
+<!-- Модальное окно для ошибок -->
+<div id="errorModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <div class="modal-icon">⚠️</div>
+            <h3 class="modal-title" id="modalErrorTitle">Error</h3>
+        </div>
+        <div class="modal-content">
+            <p class="modal-message" id="modalErrorMessage"></p>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-secondary" onclick="hideErrorModal()">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Log</h1>
+        <a href="main.html" class="back-link">← Back to Main</a>
+    </div>
+    <div id="loading" class="loading">Загрузка данных...</div>
+    <div id="error" class="error" style="display: none;"></div>
+    <div id="downloads-container">
+        <table id="downloads-table" class="downloads-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>User</th>
+                <th>Count</th>
+            </tr>
+            </thead>
+            <tbody id="downloads-body">
+            <!-- Данные будут загружаться здесь -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let refreshInterval;
+
+    // Функция для загрузки данных
+    async function loadDownloads() {
+        const token = sessionStorage.getItem('jwtToken');
+
+        if (!token) {
+            showError('Токен авторизации не найден. Пожалуйста, войдите в систему.');
+            clearInterval(refreshInterval);
+            return;
+        }
+
+        try {
+            hideError();
+
+            const response = await fetch('http://localhost:8080/log', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const downloads = await response.json();
+            displayDownloads(downloads);
+            hideLoading();
+
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
+            showError(`Не удалось загрузить данные: ${error.message}`);
+            hideLoading();
+        }
+    }
+
+    // Функция для отображения данных в таблице
+    function displayDownloads(downloads) {
+        const tbody = document.getElementById('downloads-body');
+        tbody.innerHTML = '';
+
+        if (!downloads || downloads.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="no-data">Нет данных для отображения</td></tr>';
+            return;
+        }
+
+        downloads.forEach(download => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                    <td>${download.id || '-'}</td>
+                    <td>
+                        <span class="status ${download.success ? 'success' : 'error'}">
+                            ${download.success ? 'Успешно' : 'Ошибка'}
+                        </span>
+                    </td>
+                    <td>${download.username || 'Неизвестно'}</td>
+                    <td>${download.count || 0}</td>
+                `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function hideLoading() {
+        document.getElementById('loading').style.display = 'none';
+    }
+
+    function showError(message) {
+        const errorElement = document.getElementById('error');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function hideError() {
+        document.getElementById('error').style.display = 'none';
+    }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        // Загружаем данные сразу при загрузке страницы
+        loadDownloads();
+
+        // Устанавливаем интервал для обновления данных каждые 5 секунд
+        refreshInterval = setInterval(loadDownloads, 5000);
+    });
+
+    // Очистка интервала при закрытии страницы
+    window.addEventListener('beforeunload', function() {
+        if (refreshInterval) {
+            clearInterval(refreshInterval);
+        }
+    });
+</script>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .error {
+        background-color: #ffebee;
+        color: #c62828;
+        padding: 12px;
+        border-radius: 4px;
+        margin: 10px 0;
+    }
+
+    .status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .status.success {
+        background-color: #e8f5e8;
+        color: #2e7d32;
+    }
+
+    .status.error {
+        background-color: #ffebee;
+        color: #c62828;
+    }
+
+    .no-data {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+    }
+</style>
+</body>
+</html>
